@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<title>Slimv Tutorial - Part One</title>
+</head>
+
+<body>
+
+<style id='page-skin-1' type='text/css'>
+<!--
+  body {
+    width: 800px;
+    text-align:justify;
+    font:normal normal 100% Georgia,Serif;
+    background:#ffffff;
+    color:#000000;
+  }
+  a:link {
+    color:#5588aa;
+    text-decoration:none;
+  }
+  a:visited {
+    color:#999999;
+    text-decoration:none;
+  }
+  a img {
+    border-width:0;
+  }
+  #content {
+    position:absolute;
+    top:0;
+    left:20px;
+    width: 700px;
+    padding-right: 20px;
+    border-right: 1px solid gray;
+  }
+  .nav-prev {
+    float: left;
+    text-align: left;
+  }
+  .nav-next {
+    float: right;
+    text-align: right;
+  }
+  h1 {
+    border-bottom:1px;
+    margin-bottom:0px;
+    color: #000000;
+    font: normal bold 200% Georgia,Serif;
+  }
+  h1 a, h1 a:link, h1 a:visited {
+    color: #000000;
+  }
+  #main .Header {
+    border-bottom-width: 0px;
+  }
+  h3.post-title {
+    font-size: 140%;
+    color: #000000;
+  }
+  .post {
+    padding-left:0%;
+    padding-right:0%;
+  }
+  .clear {
+    clear: both;
+  }
+-->
+</style>
+
+<style type="text/css">
+  <!--
+  .fixed {
+    font:normal bold 100% monospace;
+  }
+  -->
+</style>
+
+<style type="text/css">
+<!--
+  .lisp-body {
+    color: #c0c0c0;
+    background-color: #400040;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .inverse {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  .builtin {
+    /* font-lock-builtin-face */
+    color: #b0c4de;
+  }
+  .keyword {
+    /* font-lock-keyword-face */
+    color: #ffffff;
+  }
+  .string {
+    /* font-lock-string-face */
+    color: #00ffff;
+  }
+  .number {
+    /* font-lock-number-face */
+    color: #00ffff;
+  }
+  .type {
+    /* font-lock-type-face */
+    color: #ffff00;
+  }
+  .paren1 {
+    /* font-lock-paren1-face */
+    color: #ff0000;
+  }
+  .paren2 {
+    /* font-lock-paren2-face */
+    color: #ff8000;
+  }
+  .paren3 {
+    /* font-lock-paren3-face */
+    color: #ffff00;
+  }
+  .paren4 {
+    /* font-lock-paren4-face */
+    color: #80ff00;
+  }
+  .paren5 {
+    /* font-lock-paren5-face */
+    color: #00ff00;
+  }
+  .paren6 {
+    /* font-lock-paren6-face */
+    color: #00ffff;
+  }
+
+  a {
+    color: inherit;
+    background-color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+  }
+-->
+</style>
+
+<style type="text/css">
+<!--
+  .repl-body {
+    color: #c0c0c0;
+    background-color: #000000;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .inverse {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  .source {
+    color: #c0c0c0;
+    background-color: #400040;
+  }
+  .highlight {
+    color: #fff8dc;
+    background-color: #808080;
+  }
+  .prompt {
+    /* font-lock-prompt-face */
+    color: #ffff00;
+  }
+  .manual {
+    /* font-lock-manual-face */
+    color: #ffffff;
+  }
+  .comment {
+    /* font-lock-comment-face */
+    color: #00ff00;
+  }
+  .explain {
+    /* font-lock-explain-face */
+    color: #ff0000;
+  }
+
+  a {
+    color: inherit;
+    background-color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+  }
+-->
+</style>
+
+<style type="text/css">
+  body{
+    margin:0;
+    padding:0 0 0 150px;
+  } 
+  div#sidebar{
+    position:absolute;
+    top:0;
+    left:760px;
+    width:180px;
+    height:100%;
+    font:normal normal 75% Georgia,Serif;
+    text-align:left;
+  }
+  * html body{
+    overflow:hidden;
+  } 
+</style>
+
+<div id='content'>
+<h1 class='title'>
+<a href='https://github.com/kovisoft/slimv'>Slimv Tutorial</a> - Part One
+</h1>
+<hr />
+<h3 class='post-title entry-title'>
+</h3>
+
+<p><a href='http://www.vim.org/scripts/script.php?script_id=2531'>SLIMV</a> stands for <i><b>S</b>uperior <b>L</b>isp <b>I</b>nteraction <b>M</b>ode for <b>V</b>im</i>. The name comes from <a href='http://common-lisp.net/project/slime/'>SLIME</a> (Superior Lisp Interaction Mode for Emacs), as Slimv tries to provide the same functionality using Vim.</p>
+<p>There is an excellent <a href='http://common-lisp.net/project/movies/movies/slime.mov'>SLIME tutorial movie</a> created by Marco Barringer. The present series of tutorials is trying to introduce the same concepts using Vim and the <a href='http://www.vim.org/scripts/script.php?script_id=2531'>Slimv plugin</a> through similar actions like Marco did in his 55 minutes long movie.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="downloading"></a>Downloading
+</h3>
+
+<p>The Slimv plugin can be downloaded from the <a href='http://www.vim.org/scripts/script.php?script_id=2531'>project page on vim.org</a>. There is also a public <a href='https://github.com/kovisoft/slimv'>Slimv repository</a> containing the latest development builds.</p>
+
+<p>You will also need a Python enabled Vim, and the same Python version installed that is Vim compiled against. This is because the communication part of the plugin is written in Vim's embedded Python (unfortunately there is no embedded Lisp for Vim).</p>
+
+<p>The script is installed the same way as any regular Vim plugin: unzip the contents of the archive in the vimfiles directory.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="configuration">Configuration
+</h3>
+
+<p>Naturally the configuration of Slimv is different from the setting up of Emacs with SLIME. But if you are lucky, Slimv will just work for you out of the box.</p>
+
+<p>Slimv contains a Swank server (the same that comes with SLIME), but it is also possible to use a separate Swank server of the user's choice. Slimv starts the Swank server in a separate process, so it is recommended to use <span class="fixed">:dont-close t</span> in the Swank startup procedure (<span class="fixed">start-swank.lisp</span>). Vim does not support asynchronous buffer updates, so the Swank server cannot call Slimv directly, therefore <span class="fixed">*use-dedicated-output-stream*</span> must be set to <span class="fixed">nil</span>. These are however the default settings in the SLIME embdedded in Slimv.</p>
+
+<p>The choice of Lisp is probably the same as for Emacs: it is recommended to use an implementation that has better support for SLIME. For this tutorial I have chosen SBCL (just like Marco did), but all other major Common Lisp implementations would be OK, and even Clojure or MIT Scheme (I'll write more on these later).</p>
+
+<p>The most important Slimv option is <span class="fixed">g:slimv_swank_cmd</span>, but you need it only if there is a problem with the autodetection of Swank and you want Slimv to start the Swank server for you. In this case this option should be set in the .vimrc file to a Vim command that is able to start the Swank server (and return immediately, hence the tailing &amp; in the Linux version).<br>
+On Linux this can be something like:</p>
+<span class="fixed">let g:slimv_swank_cmd =<br>&nbsp;&nbsp;&nbsp;&nbsp;'! xterm -e sbcl --load /usr/share/common-lisp/source/slime/start-swank.lisp &amp;'</span><br>
+
+<p>If there is a difficulty using xterm to open a new terminal window for the Swank server, then I suggest to run Vim inside a GNU screen or tmux session. In this case Slimv will create a new screen/tmux session instead of creating a new window.</p>
+
+<p>Here is Windows example starting Swank in Clozure CL:</p>
+<span class="fixed">let g:slimv_swank_cmd = '!start "c:\Program Files\Lisp Cabinet\bin\ccl\wx86cl.exe" <br>
+&nbsp;&nbsp;&nbsp;&nbsp;\ -l "c:\Program Files\Lisp Cabinet\site\lisp\slime\start-swank.lisp" '</span><br>
+
+<p>There are also numerous other Slimv options, most of them are named as <span class="fixed">g:slimv_...</span> but these are not covered here, we accept the default values for now.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="startup">Starting up
+</h3>
+
+<p>Nothing special here. You just run Vim and open or create a .lisp file. Slimv is automatically loaded, this can be verified by the presence of the "Slimv" menu (and an additional "REPL" menu if you are in the REPL buffer). You can start the Swank server manually, or let Slimv to start it for you. In both cases the server is connected at the first evaluation or when pressing <span class="fixed">,c</span> (or selecting Repl/Connect-Server from the Slimv menu). Currently it is not possible to start a remote Swank server via SSH, the server must be on localhost.</p>
+
+<p>The Swank server maintains its state until closed, so even if you exit and restart Vim then reconnect the server, you have all your previous definitions in the REPL.</p>
+
+<p>When the Swank server is connected or a form is evaluated, the REPL buffer is opened in Vim (in a split window by default). If you are using gvim then I recommend you switch on Vim menu (set guioptions+=m) and study the Slimv menu, because it contains most of the Slimv commands together with their keyboard mappings:</p>
+
+<pre class="repl-body">
+<span class="inverse">File  Edit  Tools  Syntax  Buffers  Window <span class="highlight"> Slimv </span> REPL  Help                   </span>
+SBCL  Port: <span class="number">4005</span>  Pid: <span class="number">2920</span>                <span class="inverse"> Edit          &gt;</span>
+<span class="comment">; SWANK 2012-03-06</span>                         <span class="highlight"> Evaluation    &gt;</span><span class="inverse"> Eval-Defun        ,d </span>
+<span class="prompt">CL-USER&gt;</span><span class="inverse"> </span>                                  <span class="inverse"> Debugging     &gt; Eval-Current-Exp  ,e </span>
+                                           <span class="inverse"> Compilation   &gt; Eval-Region       ,r </span>
+                                           <span class="inverse"> Xref          &gt; Eval-Buffer       ,b </span>
+                                           <span class="inverse"> Profiling     &gt; Interactive-Eval  ,v </span>
+<span class="inverse">Slimv.REPL.lisp^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Documentation &gt; Undefine-Function ,u </span>
+<span class="source">                                           </span><span class="inverse"> Repl          &gt;</span><span class="source">                     </span>
+<span class="source">                                                                                </span>
+<span class="source">                                                                                </span>
+<span class="source">                                                                                </span>
+<span class="source">                                                                                </span>
+<span class="source">                                                                                </span>
+<span class="inverse">morse.lisp                                                    1,0-1          All</span>
+Connected to SWANK server on port 4005.
+</pre>
+
+<p><i>This and the following snippets contain both Lisp source code and REPL output. In this tutorial the source code has purple background in order to distinguish it from the REPL buffer. The REPL prompt is yellow here, text following the prompt to the right is manually entered. Explanatory comments (not printed by the REPL) are red and prefixed by "<span class="fixed">;;</span>".</i></p>
+
+<p>You can switch between the REPL window and the source code window with the <span class="fixed">&lt;Ctrl-w&gt;w</span> Normal mode key combination.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="basic">Basic REPL operations
+</h3>
+
+<p>Let's switch to the REPL buffer. Here we can see the Lisp prompt and we can type an s-expression just like in any regular REPL. When you press <span class="fixed">Enter</span> (in Insert mode) then the form entered is sent to the Swank server for evaluation:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">+</span> <span class="number">2 2</span><span class="paren1">)</span>
+<span class="number">4</span>
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">make-hash-table</span><span class="paren1">)</span>
+#&lt;HASH-TABLE <span class="keyword">:TEST EQL :COUNT</span> <span class="number">0</span> {<span class="keyword">B20CE49</span>}&gt;
+</pre>
+
+<p>Note that Paredit Mode is on by default, so each time you insert an opening paren, its closing pair is also added, so the parens are always kept balanced. You can disable Paredit Mode by adding <span class="fixed">let g:paredit_mode=0</span> to .vimrc.</p>
+
+<p>When using Paredit Mode, an editor feature called 'electric return' is also enabled by default. When pressing <span class="fixed">Enter</span>, an extra newline is inserted, so the line just opened is an empty one. This allows easy linewise editing of sub-forms. The electric returns are then gathered upon pressing <span class="fixed">")"</span>. Check <a href='openparen.gif'>this animation</a> to get a hint on how it works. If you want to disable electric returns, just add <span class="fixed">let g:paredit_electric_return=0</span> to .vimrc.</p>
+
+<p>You can type <span class="fixed">*</span>, <span class="fixed">**</span>, <span class="fixed">***</span> to get the objects returned by previous evaluations, or <span class="fixed">+</span>, <span class="fixed">++</span>, <span class="fixed">+++</span> to get the forms previously evaluated, just like in SLIME:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="keyword">*</span>
+#&lt;HASH-TABLE <span class="keyword">:TEST EQL :COUNT</span> <span class="number">0</span> {<span class="keyword">B20CE49</span>}&gt;
+<span class="prompt">CL-USER&gt;</span> <span class="keyword">*</span>
+#&lt;HASH-TABLE <span class="keyword">:TEST EQL :COUNT</span> <span class="number">0</span> {<span class="keyword">B20CE49</span>}&gt;
+<span class="prompt">CL-USER&gt;</span> <span class="keyword">**</span>
+#&lt;HASH-TABLE <span class="keyword">:TEST EQL :COUNT</span> <span class="number">0</span> {<span class="keyword">B20CE49</span>}&gt;
+<span class="prompt">CL-USER&gt;</span> <span class="keyword">***</span>
+#&lt;HASH-TABLE <span class="keyword">:TEST EQL :COUNT</span> <span class="number">0</span> {<span class="keyword">B20CE49</span>}&gt;
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">+</span> <span class="number">2 2</span><span class="paren1">)</span>
+<span class="number">4</span>
+<span class="prompt">CL-USER&gt;</span> <span class="keyword">+</span>
+<span class="paren1">(</span><span class="keyword">+</span> <span class="number">2 2</span><span class="paren1">)</span>
+</pre>
+
+<p>The test of presented object lookup Marco did does not work in Slimv, so don't try this at home or the universe will collapse:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> #&lt;HASH-TABLE <span class="keyword">:TEST EQL :COUNT</span> <span class="number">0</span> {<span class="keyword">B20CE49</span>}&gt;
+<span class="explain">;; Should return #&lt;HASH-TABLE :TEST EQL :COUNT 0 {B20CE49}&gt;
+;; Instead it drops you in the debugger.
+;; More on the debugger in Part Two.</span>
+</pre>
+
+<h3 class='post-title entry-title'>
+<a NAME="edit">Editing a source file
+</h3>
+
+<p>Let's make a new file called <a href='morse.lisp'>morse.lisp</a> and begin typing in the program source code.<br>Note that I have enabled rainbow parenthesis by adding <span class="fixed">let g:lisp_rainbow=1</span> to my .vimrc, so matching parens have the same color:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defpackage</span> :morse
+  <span class="paren2">(</span><span class="keyword">:use :common-lisp</span><span class="paren2">)</span><span class="paren1">)</span>
+
+<span class="paren1">(</span><span class="keyword">in-package</span> :morse<span class="paren1">)</span>
+</pre>
+
+<p>Move the mouse cursor over <span class="fixed">defpackage</span> and wait for the tooltip. The function description will be displayed in the balloon. Now move the keyboard cursor somewhere in <span class="fixed">defpackage</span> then press <span class="fixed">,s</span> (or select Documentation/Describe-Symbol from the Slimv menu) and the symbol description will be displayed in the status line and also copied to the REPL buffer.</p>
+
+<p>If you want to look up the symbol in the Common Lisp Hyperspec (CLHS) then move the cursor on the symbol and press <span class="fixed">,h</span> (or select Documentation/Hyperspec). This will open the related CLHS page in the default browser.</p>
+
+<p>Now it's time to test our little program. Let's evaluate the first form: place the cursor anywhere in the <span class="fixed">defpackage</span> form and press <span class="fixed">,d</span> (or select Evaluation/Eval-Defun from the Slimv menu). This will evaluate the current top-level form. Now move the cursor inside the <span class="fixed">in-package</span> form and press <span class="fixed">,e</span> (or select Evaluation/Eval-Current-Exp). This will evaluate the current s-expression in the REPL buffer:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> 
+<span class="explain">;; ,d on (defpackage ...) in the source buffer</span>
+<span class="paren1">(</span><span class="keyword">defpackage</span> :morse
+  <span class="paren2">(</span><span class="keyword">:use :common-lisp</span><span class="paren2">)</span><span class="paren1">)</span>
+#&lt;Package <span class="string">"MORSE"</span>&gt;
+<span class="prompt">CL-USER&gt;</span> 
+<span class="explain">;; ,d on (in-package ...) in the source buffer</span>
+<span class="paren1">(</span><span class="keyword">in-package</span> :morse<span class="paren1">)</span>
+#&lt;Package <span class="string">"MORSE"</span>&gt;
+</pre>
+
+<p>We can find the package via <span class="fixed">find-package</span>. We can also set the current package to <span class="fixed">morse</span> by pressing <span class="fixed">,g</span> (or selecting Set-Package from the REPL menu) and entering <span class="fixed">morse</span>, this will be reflected in the new <span class="fixed">MORSE&gt;</span> prompt and in the value of <span class="fixed">*package*</span>:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">find-package</span> :morse<span class="paren1">)</span>
+#&lt;Package <span class="string">"MORSE"</span>&gt;
+<span class="prompt">CL-USER&gt;</span> 
+<span class="explain">;; Set-Package command was used here</span>
+<span class="prompt">MORSE&gt;</span> <span class="manual">*package*</span>
+#&lt;Package <span class="string">"MORSE"</span>&gt;
+</pre>
+
+<p>Let's add the morse code mapping function. After typing <span class="fixed">defparameter</span> and pressing <span class="fixed">Space</span> the function argument list is displayed in the status line. This feature works for all functions defined by the user, not just the built-in ones:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defparameter</span> <span class="inverse">)</span>
+
+
+
+<span class="inverse">morse.lisp [+]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^7,15^^^^^^^^^^^Top</span>
+(defparameter VAR VAL &amp;OPTIONAL (DOC NIL DOCP))
+</pre>
+
+<p>Let's fill in the morse mapping table. Marco googled and copy-pasted the morse table into the source code, then he transformed each line into an s-expression. We can do the same via a Vim macro (<span class="fixed">q</span>), I do not cover this topic here. He also auto-indented the code, in Vim we can do that by selecting the form(s) and pressing <span class="fixed">=</span>. The indentation is similar in Slimv and in SLIME: <span class="fixed">&amp;body</span> arguments in lambda lists and macros are indented by two spaces (and not below the previous argument).</p>
+
+<p>We also define a new function to lookup a character in the morse mapping table:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defparameter</span> *morse-mapping*
+  <span class="paren2">'((</span><span class="keyword">#\A</span> <span class="string">".-"</span><span class="paren2">)</span>
+    <span class="paren2">(</span><span class="keyword">#\B</span> <span class="string">"-..."</span><span class="paren2">)</span>
+    <span class="paren2">(</span><span class="keyword">#\C</span> <span class="string">"-.-."</span><span class="paren2">)</span>
+    ...
+    <span class="paren2">(</span><span class="keyword">#\,</span> <span class="string">"--..--"</span><span class="paren2">)</span>
+    <span class="paren2">(</span><span class="keyword">#\?</span> <span class="string">"..--.."</span><span class="paren2">))</span><span class="paren1">)</span>
+
+<span class="paren1">(</span><span class="keyword">defun</span> character-to-morse <span class="paren2">(</span><span class="keyword">character</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">assoc character *morse-mapping* :test #'char-equal</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>Then we realize that we need only the second part of the value returned, so we want to call <span class="fixed">cdr</span> on the <span class="fixed">(assoc ...)</span> part. Because of Paredit this is not done by entering an opening paren, as this would immediately insert its closing pair next to it. Rather we move the cursor to the opening paren of the form we want to wrap (the one before "assoc") and press <span class="fixed">,W</span> or <span class="fixed">,w(</span> which wraps the s-expression in a new pair of parentheses. Now we can enter the wrapping function name:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> character-to-morse <span class="paren2">(</span><span class="keyword">character</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">cdr</span> <span class="paren3">(</span><span class="keyword">assoc character *morse-mapping* :test #'char-equal</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>The inverse for Paredit Wrap is Splice, which removes the outer pair of parens by pressing <span class="fixed">,S</span>. It is also possible to Split (<span class="fixed">,O</span>) and Join (<span class="fixed">,J</span>) s-expressions, Raise (<span class="fixed">,I</span>) subforms, or Move parens to the Left (<span class="fixed">,&lt;</span>) or Right (<span class="fixed">,&gt;</span>).</p>
+
+<p>Now let's compile our morse mapping: press <span class="fixed">,D</span> or select Compilation/Compile-Defun from the Slimv menu. We can also compile and load the whole source file. To compile the file press <span class="fixed">,F</span> (or select Compilation/Compile-File), to compile and load press <span class="fixed">,L</span> (or select Compilation/Compile-Load-File):</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="comment">; compiling (DEFPARAMETER *MORSE-MAPPING* ...)</span>
+Compilation finished. (No warnings)  [0.005 secs]
+
+<span class="prompt">MORSE&gt;</span> 
+<span class="comment">; compiling file "/home/kovisoft/morse.lisp" (written 09 APR 2011 10:00:17 PM):
+
+; /home/kovisoft/morse.fasl written
+; compilation finished in 0:00:00.036</span>
+
+Compilation finished. (No warnings)  [0.011 secs]
+
+<span class="prompt">MORSE&gt;</span> 
+</pre>
+
+<p>It's time to test our <span class="fixed">character-to-morse</span> function. Switch to the REPL buffer and begin typing at the prompt: <span class="fixed">(char</span>, then press <span class="fixed">&lt;Tab&gt;</span>. You will see a list of possible completions in a popup menu to choose from:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span><span class="keyword">char</span><span class="inverse">)</span>
+       <span class="highlight"> char              </span>
+       <span class="inverse"> char-code         </span>
+       <span class="inverse"> char-code-limit   </span>
+       <span class="inverse"> char-downcase     </span>
+       <span class="inverse"> char-equal        </span>
+       <span class="inverse"> char-greaterp     </span>
+       <span class="inverse"> ...               </span>
+</pre>
+
+<p>If you type more letters then a subsequent <span class="fixed">&lt;Tab&gt;</span> will bring up a subset of the previous completion list. Remember that we are in the <span class="fixed">MORSE</span> package, this is why <span class="fixed">character-to-morse</span> is included. Repeated pressing of <span class="fixed">&lt;Tab&gt;</span> selects (and immediately inserts) the next possible completion.</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>charac<span class="inverse">)</span>
+       <span class="highlight"> character           </span>
+       <span class="inverse"> characterp          </span>
+       <span class="inverse"> character-to-morse  </span>
+       <span class="inverse"> get-macro-character </span>
+       <span class="inverse"> set-macro-character </span>
+       <span class="inverse"> ...                 </span>
+</pre>
+
+<p>The default method is "fuzzy completion", so you can even type <span class="fixed">ctm</span> and press <span class="fixed">Tab</span>, then you still get it completed to <span class="fixed">character-to-morse</span>.</p>
+
+<p>This kind of completion is not limited to the REPL buffer, it works the same way for the source code buffer, as long as Slimv is connected to the Swank server.</p>
+
+<p>BTW, there is another kind of Vim completion via <span class="fixed">&lt;Ctrl-p&gt;</span> or <span class="fixed">&lt;Ctrl-n&gt;</span>. That one works by searching for the word with the same prefix in the current buffer up or down. This can be useful for completing words that are not symbol names, e.g. text in comments or strings.</p>
+
+<p>We select the proper completion and finalize the function call:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>character-to-morse <span class="keyword">#\a</span><span class="paren1">)</span>
+<span class="paren1">(</span><span class="string">".-"</span><span class="paren1">)</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>character-to-morse <span class="keyword">#\m</span><span class="paren1">)</span>
+<span class="paren1">(</span><span class="string">"--"</span><span class="paren1">)</span>
+</pre>
+
+<p>What we got is a list containing a string, but we need a string as the result. We realize that we should use <span class="fixed">second</span> instead of <span class="fixed">cdr</span> in the function, so we edit the code accordingly and then re-evaluate the defun with <span class="fixed">,d</span>.</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> character-to-morse <span class="paren2">(</span><span class="keyword">character</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">second</span> <span class="paren3">(</span><span class="keyword">assoc character *morse-mapping* :test #'char-equal</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>Switch to the REPL buffer again and recall the latest command by pressing <span class="fixed">Up</span> in Insert mode, then press <span class="fixed">Enter</span> to evaluate it:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="paren1">(</span><span class="keyword">defun</span> character-to-morse <span class="paren2">(</span><span class="keyword">character</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">second</span> <span class="paren3">(</span><span class="keyword">assoc character *morse-mapping* :test #'char-equal</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+STYLE-WARNING: redefining CHARACTER-TO-MORSE in DEFUN
+CHARACTER-TO-MORSE
+<span class="explain">;; Pressing Up to recall last command:</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>character-to-morse <span class="keyword">#\m</span><span class="paren1">)</span>
+<span class="string">"--"</span>
+</pre>
+
+<p>Fine, <span class="fixed">character-to-morse</span> now returns the morse code string for the character passed as parameter.</p>
+
+<br>
+<span class='nav-next'>Next:&nbsp;<a href='tutorial2.html'>Part Two</a></span>
+<br>
+<br>
+<hr />
+
+<p><i>Written by <a href='http://www.vim.org/account/profile.php?user_id=16470'>Tamas Kovacs</a><br>
+Last updated on Aug 28, 2020</i></p>
+
+<br>
+</div>
+
+<div id="sidebar">
+<h3 class='post-title entry-title'>
+Contents
+</h3>
+
+<p><b>Part One</b></p>
+<a href='#downloading'>Downloading</a><br>
+<a href='#configuration'>Configuration</a><br>
+<a href='#startup'>Starting up</a><br>
+<a href='#basic'>Basic REPL operations</a><br>
+<a href='#edit'>Editing a source file</a><br>
+
+<p><b><a href='tutorial2.html'>Part Two</a></b></p>
+<a href='tutorial2.html#sldb'>Using the SLIME debugger</a><br>
+<a href='tutorial2.html#debug'>More debugging methods</a><br>
+<a href='tutorial2.html#asdf'>Installing a package</a><br>
+<a href='tutorial2.html#inspect'>Inspecting a package</a><br>
+
+<p><b><a href='tutorial3.html'>Part Three</a></b></p>
+<a href='tutorial3.html#trace'>Tracing</a><br />
+<a href='tutorial3.html#inspobj'>Inspecting objects</a><br />
+<a href='tutorial3.html#xref'>Cross reference</a><br />
+</div>
+
+</body>
+</html>
+<!--
+vim:wrap:
+-->

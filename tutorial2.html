@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<title>Slimv Tutorial - Part Two</title>
+</head>
+
+<body>
+
+<style id='page-skin-1' type='text/css'>
+<!--
+  body {
+    width: 800px;
+    text-align:justify;
+    font:normal normal 100% Georgia,Serif;
+    background:#ffffff;
+    color:#000000;
+  }
+  a:link {
+    color:#5588aa;
+    text-decoration:none;
+  }
+  a:visited {
+    color:#999999;
+    text-decoration:none;
+  }
+  a img {
+    border-width:0;
+  }
+  #content {
+    position:absolute;
+    top:0;
+    left:20px;
+    width: 700px;
+    padding-right: 20px;
+    border-right: 1px solid gray;
+  }
+  .nav-prev {
+    float: left;
+    text-align: left;
+  }
+  .nav-next {
+    float: right;
+    text-align: right;
+  }
+  h1 {
+    border-bottom:1px;
+    margin-bottom:0px;
+    color: #000000;
+    font: normal bold 200% Georgia,Serif;
+  }
+  h1 a, h1 a:link, h1 a:visited {
+    color: #000000;
+  }
+  #main .Header {
+    border-bottom-width: 0px;
+  }
+  h3.post-title {
+    font-size: 140%;
+    color: #000000;
+  }
+  .post {
+    padding-left:0%;
+    padding-right:0%;
+  }
+  .clear {
+    clear: both;
+  }
+-->
+</style>
+
+<style type="text/css">
+  <!--
+  .fixed {
+    font:normal bold 100% monospace;
+  }
+  -->
+</style>
+
+<style type="text/css">
+<!--
+  .lisp-body {
+    color: #c0c0c0;
+    background-color: #400040;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .inverse {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  .builtin {
+    /* font-lock-builtin-face */
+    color: #b0c4de;
+  }
+  .keyword {
+    /* font-lock-keyword-face */
+    color: #ffffff;
+  }
+  .string {
+    /* font-lock-string-face */
+    color: #00ffff;
+  }
+  .number {
+    /* font-lock-number-face */
+    color: #00ffff;
+  }
+  .type {
+    /* font-lock-type-face */
+    color: #ffff00;
+  }
+  .paren1 {
+    /* font-lock-paren1-face */
+    color: #ff0000;
+  }
+  .paren2 {
+    /* font-lock-paren2-face */
+    color: #ff8000;
+  }
+  .paren3 {
+    /* font-lock-paren3-face */
+    color: #ffff00;
+  }
+  .paren4 {
+    /* font-lock-paren4-face */
+    color: #80ff00;
+  }
+  .paren5 {
+    /* font-lock-paren5-face */
+    color: #00ff00;
+  }
+  .paren6 {
+    /* font-lock-paren6-face */
+    color: #00ffff;
+  }
+
+  a {
+    color: inherit;
+    background-color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+  }
+-->
+</style>
+
+<style type="text/css">
+<!--
+  .repl-body {
+    color: #c0c0c0;
+    background-color: #000000;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .inverse {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  .source {
+    color: #c0c0c0;
+    background-color: #400040;
+  }
+  .highlight {
+    color: #fff8dc;
+    background-color: #808080;
+  }
+  .prompt {
+    /* font-lock-prompt-face */
+    color: #ffff00;
+  }
+  .manual {
+    /* font-lock-manual-face */
+    color: #ffffff;
+  }
+  .comment {
+    /* font-lock-comment-face */
+    color: #00ff00;
+  }
+  .explain {
+    /* font-lock-explain-face */
+    color: #ff0000;
+  }
+
+  a {
+    color: inherit;
+    background-color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+  }
+-->
+</style>
+
+<style type="text/css">
+  body{
+    margin:0;
+    padding:0 0 0 150px;
+  } 
+  div#sidebar{
+    position:absolute;
+    top:0;
+    left:760px;
+    width:180px;
+    height:100%;
+    font:normal normal 75% Georgia,Serif;
+    text-align:left;
+  }
+  * html body{
+    overflow:hidden;
+  } 
+</style>
+
+<div id='content'>
+<h1 class='title'>
+<a href='https://github.com/kovisoft/slimv'>Slimv Tutorial</a> - Part Two
+</h1>
+<hr />
+<h3 class='post-title entry-title'>
+</h3>
+
+<p>This is the second part of the <a href='tutorial.html'>Slimv Tutorial series</a>. We keep on performing Marco Barringer's actions from his <a href='http://common-lisp.net/project/movies/movies/slime.mov'>SLIME tutorial movie</a> using Vim and the <a href='http://www.vim.org/scripts/script.php?script_id=2531'>Slimv plugin</a>.</p>
+<p>This part of the tutorial assumes that you have followed <a href='tutorial.html'>Part One</a> and your REPL is loaded with all the definitions added there. So if you haven't yet visited <a href='tutorial.html'>Part One</a>, please do so before continuing with this page.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="sldb">Using the SLIME debugger
+</h3>
+
+<p>Having written the morse code lookup function in <a href='tutorial.html'>Part One</a>, now let's write the reverse function, then evaluate it with <span class="fixed">,d</span> (or alternatively save and compile the file morse.lisp we are working on).</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> morse-to-character <span class="paren2">(</span>morse-string<span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">first</span> <span class="paren3">(</span><span class="keyword">find</span> morse-string <span class="keyword">*morse-mapping* :test #'string= :key #'cdr</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>Switch to the REPL buffer (<span class="fixed">&lt;Ctrl-w&gt;w</span>) and test the new function by typing the yellow text shown below. Remember that for <span class="fixed">morse-to-character</span> it is enough to type <span class="fixed">mtc&lt;Tab&gt;</span> and fuzzy completion completes the symbol name.<br>
+Note that not only the parens but also the double quotes are handled in a balanced way by the Paredit mode, so you don't need to type the closing <span class="fixed">"</span> and <span class="fixed">)</span> characters, they are inserted automatically. You can press <span class="fixed">Enter</span> (in Insert mode) anywhere on the line to evaluate it:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>character-to-morse <span class="keyword">#\m</span><span class="paren1">)</span>
+<span class="string">"--"</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-character <span class="string">"--"</span><span class="paren1">)</span>
+
+
+<span class="inverse">Slimv.REPL.lisp                                                       12,0-1          All</span>
+The value (".-")
+is not of type
+  (OR (VECTOR CHARACTER) (VECTOR NIL) BASE-STRING SYMBOL
+      CHARACTER).
+   [Condition of type TYPE-ERROR]
+
+<span class="inverse">R</span>estarts:
+  <span class="keyword">0:</span> [RETRY] Retry SLIME REPL evaluation request.
+  <span class="keyword">1:</span> [*ABORT] Return to SLIME's top level.
+  <span class="keyword">2:</span> [TERMINATE-THREAD] Terminate this thread (#&lt;THREAD "repl-thread" RUNNING ...
+
+Backtrace:
+  <span class="keyword">0:</span> (STRING= "--" (".-"))[:EXTERNAL]
+  <span class="keyword">1:</span> (FIND "--" ((#\\A ".-") (#\\B "-...") (#\\C "-.-.") (#\\D "-..") (#\\E ".")...
+  <span class="keyword">2:</span> (MORSE-TO-CHARACTER "--")
+  <span class="keyword">3:</span> (SB-INT:SIMPLE-EVAL-IN-LEXENV (MORSE-TO-CHARACTER "--") #&lt;NULL-LEXENV&gt;)
+  <span class="keyword">4:</span> (SWANK::EVAL-REGION "(morse-to-character \\"--\\")")
+  <span class="keyword">5:</span> ((LAMBDA ()))
+  <span class="keyword">6:</span> (SWANK::TRACK-PACKAGE #&lt;CLOSURE (LAMBDA #) {B1B7815}&gt;)
+  <span class="keyword">7:</span> (SWANK::CALL-WITH-RETRY-RESTART "Retry SLIME REPL evaluation request."...
+  <span class="keyword">8:</span> (SWANK::CALL-WITH-BUFFER-SYNTAX NIL #&lt;CLOSURE (LAMBDA #) {B1B778D}&gt;)
+  <span class="keyword">9:</span> (SWANK::REPL-EVAL "(morse-to-character \\"--\\")")
+ <span class="keyword">10:</span> (SB-INT:SIMPLE-EVAL-IN-LEXENV (SWANK:LISTENER-EVAL "(morse-to-character ...
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^7,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>Oops, something went wrong. Welcome to the SLIME debugger (SLDB in short). In Marco's words: <i>"this is your best friend, your worst enemy, and everything in between"</i>.</p>
+<p>The <span class="fixed">Restarts:</span> section displays the possible restarts, the <span class="fixed">Backtrace:</span> section displays the actual call stack. If you place the cursor on a numbered line in the <span class="fixed">Backtrace:</span> section and press <span class="fixed">Enter</span> (in Normal mode) then the frame locals are displayed:</p>
+
+<pre class="repl-body">
+The value (".-")
+is not of type
+  (OR (VECTOR CHARACTER) (VECTOR NIL) BASE-STRING SYMBOL
+      CHARACTER).
+   [Condition of type TYPE-ERROR]
+
+Restarts:
+  <span class="keyword">0:</span> [RETRY] Retry SLIME REPL evaluation request.
+  <span class="keyword">1:</span> [*ABORT] Return to SLIME's top level.
+  <span class="keyword">2:</span> [TERMINATE-THREAD] Terminate this thread (#&lt;THREAD "repl-thread" RUNNING ...
+
+Backtrace:
+<span class="inverse"> </span> <span class="keyword">0:</span> (STRING= "--" (".-"))[:EXTERNAL]
+      No source line information
+    Locals:
+      SB-DEBUG::ARG-0 = 2
+      SB-DEBUG::ARG-1 = "--"
+      SB-DEBUG::ARG-2 = (".-")
+
+  <span class="keyword">1:</span> (FIND "--" ((#\\A ".-") (#\\B "-...") (#\\C "-.-.") (#\\D "-..") (#\\E ".")...
+      No source line information
+    Locals:
+      SB-DEBUG::ARG-0 = 6
+      SB-DEBUG::ARG-1 = "--"
+      SB-DEBUG::ARG-2 = ((#\\A ".-") (#\\B "-...") (#\\C "-.-.") (#\\D "-..") ....
+
+  <span class="keyword">2:</span> (MORSE-TO-CHARACTER "--")
+      No source line information
+    Locals:
+      SB-DEBUG::ARG-0 = "--"
+
+  <span class="keyword">3:</span> (SB-INT:SIMPLE-EVAL-IN-LEXENV (MORSE-TO-CHARACTER "--") #&lt;NULL-LEXENV&gt;)
+  <span class="keyword">4:</span> (SWANK::EVAL-REGION "(morse-to-character \\"--\\")")
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^13,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>From the call stack we can see that a list containing a string was passed to <span class="fixed">string=</span> as a second argument. The <span class="fixed">:key</span> must be <span class="fixed">#'second</span> instead of <span class="fixed">#'cdr</span> in our <span class="fixed">morse-to-character</span> function.</p>
+<p>If you press <span class="fixed">Enter</span> on a numbered line in the <span class="fixed">Restarts:</span> section then the corresponding restart is executed. The most frequently used restarts have their own keyboard shortcuts: <span class="fixed">,a</span> selects the Abort, <span class="fixed">,q</span> selects the Quit and <span class="fixed">,n</span> selects the contiNue restart. Let's choose restart <span class="fixed">1: [*ABORT] Return to SLIME's top level</span> by pressing <span class="fixed">,a</span>:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="explain">;; Pressing ,a for selecting the Abort restart.</span>
+<span class="comment">; Evaluation aborted on NIL</span>
+<span class="prompt">MORSE&gt;</span> <span class="comment">; Quit to level 1</span>
+<span class="prompt">MORSE&gt;</span> <span class="comment">; Evaluation aborted on #&lt;TYPE-ERROR {BBFD8F1}&gt;</span>
+</pre>
+
+<p>Switch to the source code and fix the function, then re-evaluate and re-test it:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> morse-to-character <span class="paren2">(</span>morse-string<span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">first</span> <span class="paren3">(</span><span class="keyword">find</span> morse-string <span class="keyword">*morse-mapping* :test #'string= :key #'second</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="paren1">(</span><span class="keyword">defun</span> morse-to-character <span class="paren2">(</span>morse-string<span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">first</span> <span class="paren3">(</span><span class="keyword">find</span> morse-string <span class="keyword">*morse-mapping* :test #'string= :key #'second</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+STYLE-WARNING: redefining MORSE-TO-CHARACTER in DEFUN
+MORSE-TO-CHARACTER
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-character <span class="string">"--"</span><span class="paren1">)</span>
+<span class="keyword">#\M</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-character <span class="string">".-"</span><span class="paren1">)</span>
+<span class="keyword">#\A</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-character <span class="string">"..--.."</span><span class="paren1">)</span>
+<span class="keyword">#\?</span>
+</pre>
+
+<h3 class='post-title entry-title'>
+<a NAME="debug">More debugging methods
+</h3>
+
+<p>Sometimes variables or function calls may be optimized away, so it's rather complicated to examine the backtrace. In this case we may add the following <span class="fixed">declaim</span> form at the top of the source file, this instructs lisp to produce the safest code and show all debug information:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">declaim</span> <span class="paren2">(</span><span class="keyword">optimize</span> <span class="paren3">(</span><span class="keyword">speed</span> <span class="number">0</span><span class="paren3">)</span> <span class="paren3">(</span><span class="keyword">safety</span> <span class="number">3</span><span class="paren3">)</span> <span class="paren3">(</span><span class="keyword">debug</span> <span class="number">3</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>At this point in his movie Marco presents some Paredit trickery. We skip this topic for now, it will be covered in another part of the Slimv tutorial. Instead we go on adding some new functions, that are going to transform strings into morse sequences and back.</p>
+<p>The first one is <span class="fixed">string-to-morse</span>. Here Marco demonstrates Slime's hierarchical compiler notes buffer by compiling a buggy version of the function. Unfortunately there is no compiler notes buffer in Slimv at the moment, rather all errors and warning messages are printed in the REPL buffer together with all compilation information supplied by the Swank server. Let's see an example of a problematic loop form:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> string-to-morse <span class="paren2">(</span><span class="keyword">string</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">with-output-to-string</span> <span class="paren3">(</span>morse<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">write-string</span> <span class="paren4">(</span>character-to-morse <span class="paren5">(</span><span class="keyword">aref string</span> <span class="number">0</span><span class="paren5">)</span><span class="paren4">)</span> morse<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">loop
+      do</span>
+      for <span class="keyword">char</span> across <span class="paren4">(</span><span class="keyword">subseq string</span> <span class="number">1</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-char #\Space morse</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-string</span> <span class="paren5">(</span>character-to-morse <span class="keyword">char</span><span class="paren5">)</span> morse<span class="paren4">)</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>And this is the compilation result of <span class="fixed">string-to-morse</span>:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="comment">; compiling file "/home/kovisoft/morse.lisp" (written 30 APR 2011 05:00:32 PM):
+
+; file: /home/kovisoft/morse.lisp
+; in: DEFUN STRING-TO-MORSE
+;     (LOOP DO
+;           MORSE::FOR CHAR MORSE::ACROSS (SUBSEQ STRING 1)
+;           DO (WRITE-CHAR #\  MORSE::MORSE)
+;           DO (WRITE-STRING (MORSE::CHARACTER-TO-MORSE CHAR) MORSE::MORSE))
+; 
+; caught ERROR:
+;   (in macroexpansion of (LOOP DO FOR ...))
+;   (hint: For more precise location, try *BREAK-ON-SIGNALS*.)
+;   A compound form was expected, but FOR found.
+;   current LOOP context: DO FOR CHAR.
+
+;     (WITH-OUTPUT-TO-STRING (MORSE::MORSE)
+;       (WRITE-STRING (MORSE::CHARACTER-TO-MORSE (AREF STRING 0)) MORSE::MORSE)
+;       (LOOP DO
+;             MORSE::FOR CHAR MORSE::ACROSS (SUBSEQ STRING 1)
+;             DO (WRITE-CHAR #\  MORSE::MORSE)
+;             DO (WRITE-STRING (MORSE::CHARACTER-TO-MORSE CHAR) MORSE::MORSE)))
+; --&gt; LET GET-OUTPUT-STREAM-STRING 
+; ==&gt;
+;   MORSE::MORSE
+; 
+; note: deleting unreachable code
+; 
+; compilation unit finished
+;   caught 1 ERROR condition
+;   printed 1 note
+
+; /home/kovisoft/morse.fasl written
+; compilation finished in 0:00:00.090</span>
+
+2 compiler notes:
+
+/home/kovisoft/morse.lisp:1219
+  error: (in macroexpansion of (LOOP DO FOR ...))
+(hint: For more precise location, try *BREAK-ON-SIGNALS*.)
+A compound form was expected, but FOR found.
+current LOOP context: DO FOR CHAR.
+
+/home/kovisoft/morse.lisp:1120
+  note: deleting unreachable code
+</pre>
+
+<p>This long list informs us that there is a problem in the macroexpansion of <span class="fixed">(LOOP DO FOR ...)</span>. We can collect information about the proper usage of the <span class="fixed">loop</span> form in various ways.</p>
+<p>One way is to hover the mouse over the <span class="fixed">loop</span> symbol: this will display a tooltip with the symbol description. Another way to describe a symbol is to place the cursor on the symbol name and press <span class="fixed">,s</span> (or select Documentation/Describe-Symbol from the Slimv menu):</p>
+
+<pre class="repl-body">
+COMMON-LISP:LOOP
+  [symbol]
+
+LOOP names a macro:
+  Lambda-list: (&amp;ENVIRONMENT ENV &amp;REST KEYWORDS-AND-FORMS)
+  Source file: SYS:SRC;CODE;LOOP.LISP
+<span class="comment">Press ENTER or type command to continue</span><span class="inverse"> </span>
+</pre>
+
+<p>We can also look up the symbol in the Common Lisp Hyperspec by pressing <span class="fixed">,h</span> (or selecting Documentation/Hyperspec from the Slimv menu). This will open the related Hyperspec page in the default browser.</p>
+<p>But as we know that <span class="fixed">loop</span> is a macro, therefore we can also examine its macroexpansion by pressing <span class="fixed">,1</span> on the form (or selecting Debugging/Macroexpand-1 from the Slimv menu):</p>
+
+<pre class="repl-body">
+A compound form was expected, but FOR found.
+current LOOP context: DO FOR CHAR.
+   [Condition of type SB-INT:SIMPLE-PROGRAM-ERROR]
+
+<span class="inverse">R</span>estarts:
+  <span class="keyword">0:</span> [*ABORT] Return to SLIME's top level.
+  <span class="keyword">1:</span> [TERMINATE-THREAD] Terminate this thread (#&lt;THREAD "worker" RUNNING {B2C63D1}&gt;)
+
+Backtrace:
+  <span class="keyword">0:</span> (SB-LOOP::LOOP-ERROR "A compound form was expected, but ~S found.")[:EXTERNAL]
+  <span class="keyword">1:</span> (SB-LOOP::LOOP-GET-COMPOUND-FORM)
+  <span class="keyword">2:</span> (SB-LOOP::LOOP-GET-PROGN)
+  <span class="keyword">3:</span> (SB-LOOP::LOOP-DO-DO)
+  <span class="keyword">4:</span> (SB-LOOP::LOOP-ITERATION-DRIVER)
+  <span class="keyword">5:</span> (SB-LOOP::LOOP-TRANSLATE (DO FOR CHAR ACROSS (SUBSEQ STRING 1) ...
+  <span class="keyword">6:</span> (MACROEXPAND-1 ..)
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^5,1^^^^^^^^^^^^Top</span>
+<span class="source">     <span class="inverse">(</span><span class="keyword">loop</span>                                                                               </span>
+<span class="source">       <span class="keyword">do</span>                                                                                </span>
+<span class="source">       for <span class="keyword">char</span> across <span class="paren4">(</span><span class="keyword">subseq string</span> <span class="number">1</span><span class="paren4">)</span>                                                 </span>
+<span class="source">                                                                                         </span>
+<span class="inverse">morse.lisp                                                            58,6            Bot</span>
+</pre>
+
+<p>Now we see that the problem is the extra <span class="fixed">do</span> before <span class="fixed">for</span>. Select the <span class="fixed">0: [*ABORT]</span> restart and eliminate the extra line:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> string-to-morse <span class="paren2">(</span><span class="keyword">string</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">with-output-to-string</span> <span class="paren3">(</span>morse<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">write-string</span> <span class="paren4">(</span>character-to-morse <span class="paren5">(</span><span class="keyword">aref string</span> <span class="number">0</span><span class="paren5">)</span><span class="paren4">)</span> morse<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">loop</span>
+      for <span class="keyword">char</span> across <span class="paren4">(</span><span class="keyword">subseq string</span> <span class="number">1</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-char #\Space morse</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-string</span> <span class="paren5">(</span>character-to-morse <span class="keyword">char</span><span class="paren5">)</span> morse<span class="paren4">)</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>After macroexpanding the loop form again (make sure that the cursor stays inside the the loop form, but not inside an inner sub-form) we get something like that:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="explain">;; Macroexpand-1 was selected here on (loop ...)</span>
+<span class="paren1">(</span>BLOCK NIL
+  <span class="paren2">(</span>LET <span class="paren3">(</span><span class="paren4">(</span>CHAR NIL<span class="paren4">)</span>
+        <span class="paren4">(</span>#:LOOP-ACROSS-VECTOR-862 <span class="paren5">(</span>SUBSEQ STRING 1<span class="paren5">)</span><span class="paren4">)</span>
+        <span class="paren4">(</span>#:LOOP-ACROSS-INDEX-863 0<span class="paren4">)</span>
+        <span class="paren4">(</span>#:LOOP-ACROSS-LIMIT-864 0<span class="paren4">)</span><span class="paren3">)</span>
+    <span class="paren3">(</span>DECLARE <span class="paren4">(</span>TYPE FIXNUM #:LOOP-ACROSS-LIMIT-864<span class="paren4">)</span>
+             <span class="paren4">(</span>TYPE FIXNUM #:LOOP-ACROSS-INDEX-863<span class="paren4">)</span>
+             <span class="paren4">(</span>TYPE VECTOR #:LOOP-ACROSS-VECTOR-862<span class="paren4">)</span><span class="paren3">)</span>
+    <span class="paren3">(</span>SB-LOOP::LOOP-BODY
+     <span class="paren4">(</span><span class="paren5">(</span>SETQ #:LOOP-ACROSS-LIMIT-864 <span class="paren6">(</span>LENGTH #:LOOP-ACROSS-VECTOR-862<span class="paren6">)</span><span class="paren5">)</span><span class="paren4">)</span>
+     <span class="paren4">(</span><span class="paren5">(</span>WHEN <span class="paren6">(</span>&gt;= #:LOOP-ACROSS-INDEX-863 #:LOOP-ACROSS-LIMIT-864<span class="paren6">)</span>
+        <span class="paren6">(</span>GO SB-LOOP::END-LOOP<span class="paren6">)</span><span class="paren5">)</span>
+      <span class="paren5">(</span>SB-LOOP::LOOP-REALLY-DESETQ CHAR
+                                   <span class="paren6">(</span>AREF #:LOOP-ACROSS-VECTOR-862
+                                         #:LOOP-ACROSS-INDEX-863<span class="paren6">)</span><span class="paren5">)</span>
+      NIL
+      <span class="paren5">(</span>SB-LOOP::LOOP-REALLY-DESETQ #:LOOP-ACROSS-INDEX-863
+                                   <span class="paren6">(</span>1+ #:LOOP-ACROSS-INDEX-863<span class="paren6">)</span><span class="paren5">)</span><span class="paren4">)</span>
+     <span class="paren4">(</span><span class="paren5">(</span>WRITE-CHAR #\  MORSE<span class="paren5">) (</span>WRITE-STRING <span class="paren6">(</span>CHARACTER-TO-MORSE CHAR<span class="paren6">)</span> MORSE<span class="paren5">)</span><span class="paren4">)</span>
+     <span class="paren4">(</span><span class="paren5">(</span>WHEN <span class="paren6">(</span>&gt;= #:LOOP-ACROSS-INDEX-863 #:LOOP-ACROSS-LIMIT-864<span class="paren6">)</span>
+        <span class="paren6">(</span>GO SB-LOOP::END-LOOP<span class="paren6">)</span><span class="paren4">)</span>
+      <span class="paren5">(</span>SB-LOOP::LOOP-REALLY-DESETQ CHAR
+                                   <span class="paren6">(</span>AREF #:LOOP-ACROSS-VECTOR-862
+                                         #:LOOP-ACROSS-INDEX-863<span class="paren6">)</span><span class="paren5">)</span>
+      NIL
+      <span class="paren5">(</span>SB-LOOP::LOOP-REALLY-DESETQ #:LOOP-ACROSS-INDEX-863
+                                   <span class="paren6">(</span>1+ #:LOOP-ACROSS-INDEX-863<span class="paren6">)</span><span class="paren5">)</span><span class="paren4">)</span>
+     NIL<span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>Right now we don't decrypt the output, but at least we can confirm the macroexpansion does not give any errors. Let's compile the corrected function and test it in the REPL buffer:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>string-to-morse <span class="string">"marco"</span><span class="paren1">)</span>
+<span class="string">"-- .- .-. -.-. ---"</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>string-to-morse <span class="string">"sos"</span><span class="paren1">)</span>
+<span class="string">"... --- ..."</span>
+</pre>
+
+<h3 class='post-title entry-title'>
+<a NAME="asdf">Installing a package
+</h3>
+
+<p>The next function to implement is <span class="fixed">morse-to-string</span>, for this we'll need a function that splits a delimited string: <span class="fixed">split-sequence:split-sequence</span>. Package <span class="fixed">split-sequence</span> is not part of our lisp by default, so we need to install it first, e.g. via <a href='http://common-lisp.net/project/asdf/'>ASDF</a>. Please note that the availability and usage of ASDF depends on the Common Lisp implementation.</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">require</span> :asdf-install<span class="paren1">)</span>
+<span class="paren1">(<span class="string">"ASDF-INSTALL"</span>)</span>
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span>asdf-install:install :split-sequence<span class="paren1">)</span>
+Install where?
+1) System-wide install: 
+   System in /usr/lib/sbcl/site-systems/
+   Files in /usr/lib/sbcl/site/ 
+2) Personal installation: 
+   System in /home/kovisoft/.sbcl/systems/
+   Files in /home/kovisoft/.sbcl/site/ 
+ --&gt; <span class="manual">2</span>
+Downloading 2601 bytes from http://ftp.linux.org.uk/pub/lisp/experimental/cclan/split...
+
+
+<span class="inverse">Slimv.REPL.lisp                                                      112,0-1          All</span>
+The function ASDF::SPLIT is undefined.
+   [Condition of type UNDEFINED-FUNCTION]
+
+<span class="inverse">R</span>estarts:
+  <span class="keyword">0:</span> [SKIP-GPG-CHECK] Don't check GPG signature for this package
+  <span class="keyword">1:</span> [RETRY] Retry SLIME REPL evaluation request.
+  <span class="keyword">2:</span> [*ABORT] Return to SLIME's top level.
+  <span class="keyword">3:</span> [TERMINATE-THREAD] Terminate this thread (#&lt;THREAD "repl-thread" RUNNING {B0D7679}&gt;)
+
+Backtrace:
+  <span class="keyword">0:</span> ("bogus stack frame")
+  <span class="keyword">1:</span> (ASDF-INSTALL::VERIFY-GPG-SIGNATURE/STRING ..)
+  <span class="keyword">2:</span> (ASDF-INSTALL::VERIFY-GPG-SIGNATURE/URL "http://ftp.linux.org.uk/pub/lisp/...
+  <span class="keyword">3:</span> (ASDF-INSTALL::DOWNLOAD-FILES-FOR-PACKAGE "SPLIT-SEQUENCE" #P"/home/kovisoft/...
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^4,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>Here we get an error because we don't have the public key for the package. For this tutorial we skip the GPG signature check, just as Marco did, but as he warns us we shouldn't.</p>
+<p>So we select restart <span class="fixed">0: [SKIP-GPG-CHECK]</span> and wait for the installation of package <span class="fixed">split-sequence</span>:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> 
+<span class="explain">;; Restart 0: [SKIP-GPG-CHECK] was selected here</span>
+0
+<span class="comment">; Evaluation aborted on NIL</span>
+<span class="prompt">CL-USER&gt;</span> <span class="comment">; Quit to level 1</span>
+<span class="prompt">CL-USER&gt;</span> Installing /home/kovisoft/SPLIT-SEQUENCE.asdf-install-...
+split-sequence/README.cCLan-install
+split-sequence/split-sequence.asd
+split-sequence/split-sequence.lisp
+<span class="comment">; loading system definition from
+; /home/kovisoft/.sbcl/systems/split-sequence.asd into #&lt;PACKAGE "ASDF0"&gt;
+; registering #&lt;SYSTEM :SPLIT-SEQUENCE {B957901}&gt; as SPLIT-SEQUENCE
+
+; compiling file "/home/kovisoft/.sbcl/site/split-sequence/split-sequence.lisp" ...
+; compiling (DEFPACKAGE "SPLIT-SEQUENCE" ...)
+; compiling (IN-PACKAGE "SPLIT-SEQUENCE")
+; compiling (DEFUN SPLIT-SEQUENCE ...)
+; compiling (DEFUN SPLIT-SEQUENCE-IF ...)
+; compiling (DEFUN SPLIT-SEQUENCE-IF-NOT ...)
+; compiling (DEFUN PARTITION ...)
+; compiling (DEFUN PARTITION-IF ...)
+; compiling (DEFUN PARTITION-IF-NOT ...)
+; compiling (DEFINE-COMPILER-MACRO PARTITION ...)
+; compiling (DEFINE-COMPILER-MACRO PARTITION-IF ...)
+; compiling (DEFINE-COMPILER-MACRO PARTITION-IF-NOT ...)
+; compiling (PUSHNEW :SPLIT-SEQUENCE ...)
+
+; /home/kovisoft/.cache/common-lisp/sbcl-1.0.40.0.debian-linux-x86/home/kovisoft/...
+; compilation finished in 0:00:00.657</span>
+<span class="keyword">NIL</span>
+</pre>
+
+<p>Marco installed the <span class="fixed">split-sequence</span> package via <a href='http://common-lisp.net/project/asdf/'>ASDF</a>, but there is another way to do it using <a href='http://www.quicklisp.org'>Quicklisp</a>. You can install Quicklisp by loading <a href='http://beta.quicklisp.org/quicklisp.lisp'>quicklisp.lisp</a> into the REPL and evaluating <span class="fixed">(quicklisp-quickstart:install)</span>. If you want to start Quicklisp every time your Lisp starts, then evaluate <span class="fixed">(ql:add-to-init-file)</span>. You can perform the installation steps also from within Slimv:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">load</span> #P<span class="string">"/home/kovisoft/quicklisp.lisp"</span><span class="paren1">)</span>
+  ==== quicklisp quickstart loaded ====
+
+    To continue, evaluate: (quicklisp-quickstart:install)
+
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span>quicklisp-quickstart:install<span class="paren1">)</span>
+
+<span class="comment">; Fetching #&lt;URL "http://beta.quicklisp.org/quickstart/asdf.lisp"&gt;
+; 159.59KB</span>
+==================================================
+163,424 bytes in 0.16 seconds (985.15KB/sec)
+<span class="comment">; Fetching #&lt;URL "http://beta.quicklisp.org/quickstart/quicklisp.tar"&gt;
+; 180.00KB</span>
+==================================================
+184,320 bytes in 0.16 seconds (1097.56KB/sec)
+<span class="comment">; Fetching #&lt;URL "http://beta.quicklisp.org/quickstart/setup.lisp"&gt;
+; 4.88KB</span>
+==================================================
+4,995 bytes in 0.001 seconds (4877.93KB/sec)
+<span class="comment">; Upgrading ASDF from version 1.704 to version 2.014.6
+; Fetching #&lt;URL "http://beta.quicklisp.org/dist/quicklisp.txt"&gt;
+; 0.40KB</span>
+==================================================
+408 bytes in 0.001 seconds (398.44KB/sec)
+
+  ==== quicklisp installed ====
+
+    To load a system, use: (ql:quickload "system-name")
+
+    To find systems, use: (ql:system-apropos "term")
+
+    To load Quicklisp every time you start Lisp, use: (ql:add-to-init-file)
+
+    For more information, see http://www.quicklisp.org/beta/
+
+<span class="keyword">NIL</span>
+</pre>
+
+<p>Assuming that you have already installed Quicklisp and it is running, this is how you install the <span class="fixed">split-sequence</span> package:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span>ql:quickload :split-sequence<span class="paren1">)</span>
+To load <span class="string">"split-sequence"</span>:
+  Load <span class="number">1</span> ASDF system:
+    split-sequence
+<span class="comment">; Loading "split-sequence"</span>
+
+<span class="paren1">(</span>:SPLIT-SEQUENCE<span class="paren1">)</span>
+</pre>
+
+<h3 class='post-title entry-title'>
+<a NAME="inspect">Inspecting a package
+</h3>
+
+<p>Let's verify that the newly installed package is available via <span class="fixed">find-package</span>. Inspect the package by pressing <span class="fixed">,i</span> (or by selecting Debugging/Inspect from the Slimv menu). We get a prompt to enter the symbol name to inspect. The prompt might be pre-filled with a symbol name under the cursor, but we ignore this and use <span class="fixed">*</span> (i.e. the result of the previous <span class="fixed">find-package</span> expression - the package object is this case).</p>
+<p>The inspector has a hierarchical structure. You can inspect the n-th part below the current node by pressing <span class="fixed">Enter</span> in Normal mode on a line beginning with <span class="fixed">[nn]</span>, where <b>nn</b> is the part identifier. You can return to the previous node by pressing <span class="fixed">Enter</span> on the last line containing <span class="fixed">[&lt;&lt;]</span>.<br>
+There may also be "actions" bound to the node, these are marked with <span class="fixed">&lt;nn&gt;</span>, where <b>nn</b> is the action identifier. You also select actions by pressing <span class="fixed">Enter</span> on their line.</p>
+<p>If we are new to a package, we can inspect the external symbols provided by the package. Then we can examine the function descriptions one by one:</p>
+
+<pre class="repl-body">
+<span class="prompt">CL-USER&gt;</span> <span class="paren1">(</span><span class="keyword">find-package</span> :split-sequence<span class="paren1">)</span>
+#&lt;<span class="keyword">PACKAGE</span> <span class="string">"SPLIT-SEQUENCE"</span>&gt;
+<span class="prompt">CL-USER&gt;</span> 
+<span class="explain">;; "Inspect: *" was used here</span>
+
+
+<span class="inverse">Slimv.REPL.lisp                                                      112,0-1          All</span>
+Inspecting #&lt;PACKAGE {B99A001}&gt;
+--------------------
+[1] Name: "SPLIT-SEQUENCE"
+[2] Nick names: "PARTITION"
+[3] Use list: COMMON-LISP
+Used by list: 
+[4] 35 present symbols.
+<span class="inverse">[</span>5] 6 external symbols.
+[6] 29 internal symbols.
+[7] 978 inherited symbols.
+0 shadowed symbols.
+ 
+[&lt;&lt;]
+<span class="explain">;; Item [5] was selected here</span>
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^8,1^^^^^^^^^^^^Top</span>
+Inspecting #&lt;SWANK::%PACKAGE-SYMBOLS-CONTAINER {AF5EC21}&gt;
+--------------------
+All external symbols of package "SPLIT-SEQUENCE"
+
+A symbol is considered external of a package if it's
+"part of the `external interface' to the package and
+[is] inherited by any other package that uses the
+package." (CLHS glossary entry of `external')
+
+&lt;0&gt;   [Group by classification]
+
+Symbols:                       Flags:
+------------------------------ --------
+[1] PARTITION                  -f-----p
+[2] PARTITION-IF               -f------
+[3] PARTITION-IF-NOT           -f------
+<span class="inverse">[</span>4] SPLIT-SEQUENCE             -f-----p
+[5] SPLIT-SEQUENCE-IF          -f------
+[6] SPLIT-SEQUENCE-IF-NOT      -f------
+ 
+[&lt;&lt;]
+<span class="explain">;; Item [4] was selected here</span>
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^17,1^^^^^^^^^^^^Top</span>
+Inspecting #&lt;SYMBOL {B99A1AF}&gt;
+--------------------
+[1] Its name is: "SPLIT-SEQUENCE"
+It is unbound.
+[2] It is a function: #&lt;FUNCTION SPLIT-SEQUENCE:SPLIT-SEQUENCE&gt;
+&lt;0&gt; [unbind]
+Function documentation:
+  Return a list of subsequences in seq delimited by delimiter.
+
+If :remove-empty-subseqs is NIL, empty subsequences will be included
+in the result; otherwise they will be discarded.  All other keywords
+work analogously to those for CL:SUBSTITUTE.  In particular, the
+behaviour of :from-end is possibly different from other versions of
+this function; :from-end values of NIL and T are equivalent unless
+:count is supplied. The second return value is an index suitable as an
+argument to CL:SUBSEQ into the sequence indicating where processing
+stopped.
+
+[3] It is external to the package: SPLIT-SEQUENCE
+&lt;1&gt; [unintern]
+[4] Property list: NIL
+[5] It names the package: @0=#&lt;PACKAGE "SPLIT-SEQUENCE"&gt;
+ 
+[&lt;&lt;]
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p><i>In the above example we selected the same items in the inspector as Marco did in the movie. Our actions are marked by green lines, these are explanatory messages, they are normally not printed by the REPL.</i></p>
+<p>Now package <span class="fixed">split-sequence</span> is installed and ready for use in <span class="fixed">morse-to-string</span>.</p>
+
+<br>
+<span class='nav-prev'>Previous:&nbsp;<a href='tutorial.html'>Part One</a></span>
+<span class='nav-next'>Next:&nbsp;<a href='tutorial3.html'>Part Three</a></span>
+<br>
+<br>
+<hr />
+
+<p><i>Written by <a href='http://www.vim.org/account/profile.php?user_id=16470'>Tamas Kovacs</a><br>
+Last updated on Aug 28, 2020</i></p>
+
+<br>
+</div>
+
+<div id="sidebar">
+<h3 class='post-title entry-title'>
+Contents
+</h3>
+
+<p><b><a href='tutorial.html'>Part One</a></b></p>
+<a href='tutorial.html#downloading'>Downloading</a><br>
+<a href='tutorial.html#configuration'>Configuration</a><br>
+<a href='tutorial.html#startup'>Starting up</a><br>
+<a href='tutorial.html#basic'>Basic REPL operations</a><br>
+<a href='tutorial.html#edit'>Editing a source file</a><br>
+
+<p><b>Part Two</b><br></p>
+<a href='#sldb'>Using the SLIME debugger</a><br>
+<a href='#debug'>More debugging methods</a><br>
+<a href='#asdf'>Installing a package</a><br>
+<a href='#inspect'>Inspecting a package</a><br>
+
+<p><b><a href='tutorial3.html'>Part Three</a></b></p>
+<a href='tutorial3.html#trace'>Tracing</a><br />
+<a href='tutorial3.html#inspobj'>Inspecting objects</a><br />
+<a href='tutorial3.html#xref'>Cross reference</a><br />
+</div>
+
+</body>
+</html>
+<!--
+vim:wrap:
+-->

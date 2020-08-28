@@ -1,0 +1,589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<title>Slimv Tutorial - Part Three</title>
+</head>
+
+<body>
+
+<style id='page-skin-1' type='text/css'>
+<!--
+  body {
+    width: 800px;
+    text-align:justify;
+    font:normal normal 100% Georgia,Serif;
+    background:#ffffff;
+    color:#000000;
+  }
+  a:link {
+    color:#5588aa;
+    text-decoration:none;
+  }
+  a:visited {
+    color:#999999;
+    text-decoration:none;
+  }
+  a img {
+    border-width:0;
+  }
+  #content {
+    position:absolute;
+    top:0;
+    left:20px;
+    width: 700px;
+    padding-right: 20px;
+    border-right: 1px solid gray;
+  }
+  .nav-prev {
+    float: left;
+    text-align: left;
+  }
+  .nav-next {
+    float: right;
+    text-align: right;
+  }
+  h1 {
+    border-bottom:1px;
+    margin-bottom:0px;
+    color: #000000;
+    font: normal bold 200% Georgia,Serif;
+  }
+  h1 a, h1 a:link, h1 a:visited {
+    color: #000000;
+  }
+  #main .Header {
+    border-bottom-width: 0px;
+  }
+  h3.post-title {
+    font-size: 140%;
+    color: #000000;
+  }
+  .post {
+    padding-left:0%;
+    padding-right:0%;
+  }
+  .clear {
+    clear: both;
+  }
+-->
+</style>
+
+<style type="text/css">
+  <!--
+  .fixed {
+    font:normal bold 100% monospace;
+  }
+  -->
+</style>
+
+<style type="text/css">
+<!--
+  .lisp-body {
+    color: #c0c0c0;
+    background-color: #400040;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .inverse {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  .builtin {
+    /* font-lock-builtin-face */
+    color: #b0c4de;
+  }
+  .keyword {
+    /* font-lock-keyword-face */
+    color: #ffffff;
+  }
+  .string {
+    /* font-lock-string-face */
+    color: #00ffff;
+  }
+  .number {
+    /* font-lock-number-face */
+    color: #00ffff;
+  }
+  .type {
+    /* font-lock-type-face */
+    color: #ffff00;
+  }
+  .paren1 {
+    /* font-lock-paren1-face */
+    color: #ff0000;
+  }
+  .paren2 {
+    /* font-lock-paren2-face */
+    color: #ff8000;
+  }
+  .paren3 {
+    /* font-lock-paren3-face */
+    color: #ffff00;
+  }
+  .paren4 {
+    /* font-lock-paren4-face */
+    color: #80ff00;
+  }
+  .paren5 {
+    /* font-lock-paren5-face */
+    color: #00ff00;
+  }
+  .paren6 {
+    /* font-lock-paren6-face */
+    color: #00ffff;
+  }
+
+  a {
+    color: inherit;
+    background-color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+  }
+-->
+</style>
+
+<style type="text/css">
+<!--
+  .repl-body {
+    color: #c0c0c0;
+    background-color: #000000;
+    padding: 10px;
+    font-size: 9pt;
+  }
+  .inverse {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  .source {
+    color: #c0c0c0;
+    background-color: #400040;
+  }
+  .highlight {
+    color: #fff8dc;
+    background-color: #808080;
+  }
+  .prompt {
+    /* font-lock-prompt-face */
+    color: #ffff00;
+  }
+  .manual {
+    /* font-lock-manual-face */
+    color: #ffffff;
+  }
+  .comment {
+    /* font-lock-comment-face */
+    color: #00ff00;
+  }
+  .explain {
+    /* font-lock-explain-face */
+    color: #ff0000;
+  }
+
+  a {
+    color: inherit;
+    background-color: inherit;
+    font: inherit;
+    text-decoration: inherit;
+  }
+-->
+</style>
+
+<style type="text/css">
+  body{
+    margin:0;
+    padding:0 0 0 150px;
+  } 
+  div#sidebar{
+    position:absolute;
+    top:0;
+    left:760px;
+    width:180px;
+    height:100%;
+    font:normal normal 75% Georgia,Serif;
+    text-align:left;
+  }
+  * html body{
+    overflow:hidden;
+  } 
+</style>
+
+<div id='content'>
+<h1 class='title'>
+<a href='https://github.com/kovisoft/slimv'>Slimv Tutorial</a> - Part Three
+</h1>
+<hr />
+<h3 class='post-title entry-title'>
+</h3>
+
+<p>This is the third part of the <a href='tutorial.html'>Slimv Tutorial series</a>. In the first two parts we introduced Lisp source code editing concepts, basic REPL operations and the SLIME debugger. In this part we follow Marco Barringer's <a href='http://common-lisp.net/project/movies/movies/slime.mov'>SLIME tutorial movie</a> to its end.</p>
+<p>This part of the tutorial assumes that you have followed <a href='tutorial.html'>Part One</a> and <a href='tutorial2.html'>Part Two</a> and your REPL is loaded with all the definitions added there. So if you haven't yet visited the previous parts, please do so before continuing with this page.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="trace">Tracing
+</h3>
+
+<p>So far we have installed package <span class="fixed">split-sequence</span>, so we can now write <span class="fixed">morse-to-string</span>.<br />
+This is the initial version:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> morse-to-string <span class="paren2">(</span><span class="keyword">string</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">with-output-to-string</span> <span class="paren3">(</span>character-stream<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">loop</span>
+      for morse-char in <span class="paren4">(</span>split-sequence:split-sequence <span class="keyword">#\Space string</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-char</span> <span class="paren5">(</span>morse-to-character morse-char<span class="paren5">)</span> character-stream<span class="paren4">)</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>Just for fun after compiling <a href='morse.lisp'>morse.lisp</a> we test our new function with an extra space added at the end of the morse string:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>string-to-morse <span class="string">"marco"</span><span class="paren1">)</span>
+<span class="string">"-- .- .-. -.-. ---"</span>
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-string <span class="string">"-- .- .-. -.-. --- "</span><span class="paren1">)</span>
+
+
+<span class="inverse">Slimv.REPL.lisp                                                       75,0-1          Bot</span>
+The value NIL is not of type CHARACTER.
+   [Condition of type TYPE-ERROR]
+
+<span class="inverse">R</span>estarts:
+  <span class="keyword">0:</span> [RETRY] Retry SLIME REPL evaluation request.
+  <span class="keyword">1:</span> [*ABORT] Return to SLIME's top level.
+  <span class="keyword">2:</span> [TERMINATE-THREAD] Terminate this thread (#&lt;THREAD "repl-thread" RUNNING {B617D49}&gt;)
+
+Backtrace:
+  <span class="keyword">0:</span> (SB-IMPL::STRING-OUCH #&lt;SB-IMPL::STRING-OUTPUT-STREAM {AE0A679}&gt; NIL)
+  <span class="keyword">1:</span> (WRITE-CHAR NIL #&lt;SB-IMPL::STRING-OUTPUT-STREAM {AE0A679}&gt;)
+  <span class="keyword">2:</span> (MORSE-TO-STRING "-- .- .-. -.-. --- ")
+  ...
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^4,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>In the backtrace we can see that <span class="fixed">nil</span> was passed to <span class="fixed">write-char</span> (look at frame #1), but it's not immediately clear why. We can use the editor buffer for testing function calls "in place": let's quit the debugger, replace argument <span class="fixed">string</span> in the <span class="fixed">split-sequence:split-sequence</span> call and evaluate the containing form with <span class="fixed">,e</span>:</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> morse-to-string <span class="paren2">(</span><span class="keyword">string</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">with-output-to-string</span> <span class="paren3">(</span>character-stream<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">loop</span>
+      for morse-char in <span class="paren4">(</span>split-sequence:split-sequence <span class="keyword">#\Space</span> <span class="string">"-- .- .-. -.-. --- "</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-char</span> <span class="paren5">(</span>morse-to-character morse-char<span class="paren5">)</span> character-stream<span class="paren4">)</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>split-sequence:split-sequence <span class="keyword">#\Space</span> <span class="string">"-- .- .-. -.-. --- "</span><span class="paren1">)</span>
+<span class="paren1">(</span><span class="string">"--" ".-" ".-." "-.-." "---" ""</span><span class="paren1">)</span>
+</pre>
+
+<p>From the result it is now clear that the problem is caused by the last empty string. Let's fix it by removing empty subsequences in <span class="fixed">split-sequence:split-sequence</span> (and don't forget to restore the original <span class="fixed">string</span> argument):</p>
+
+<pre class="lisp-body">
+<span class="paren1">(</span><span class="keyword">defun</span> morse-to-string <span class="paren2">(</span><span class="keyword">string</span><span class="paren2">)</span>
+  <span class="paren2">(</span><span class="keyword">with-output-to-string</span> <span class="paren3">(</span>character-stream<span class="paren3">)</span>
+    <span class="paren3">(</span><span class="keyword">loop</span>
+      for morse-char in <span class="paren4">(</span>split-sequence:split-sequence <span class="keyword">#\Space string</span>
+                                                       :remove-empty-subseqs <span class="keyword">t</span><span class="paren4">)</span>
+      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-char</span> <span class="paren5">(</span>morse-to-character morse-char<span class="paren5">)</span> character-stream<span class="paren4">)</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>
+</pre>
+
+<p>After compiling and testing, our new function seems to work as intended (the characters are converted to upper case because our morse mapping contains capital letters only):</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-string <span class="paren2">(</span>string-to-morse <span class="string">"marco"</span><span class="paren2">)</span><span class="paren1">)</span>
+<span class="string">"MARCO"</span>
+</pre>
+
+<p>But how can we make sure that this is not just a strange coincidence? In order to answer this, we're going to trace the functions involved. Slimv toggles tracing by placing the cursor on a function name and pressing <span class="fixed">,t</span> (or by selecting Debugging/Toggle-Trace from the Slimv menu). So let's switch on tracing for <span class="fixed">string-to-morse</span> and <span class="fixed">morse-to-string</span>.</p>
+<p>With tracing enabled we re-evaluate our last test form:</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> 
+<span class="explain">;; Pressing ,t on symbol string-to-morse</span>
+STRING-TO-MORSE is now traced.
+<span class="prompt">MORSE&gt;</span> 
+<span class="explain">;; Pressing ,t on symbol morse-to-string</span>
+MORSE-TO-STRING is now traced.
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-string <span class="paren2">(</span>string-to-morse <span class="string">"marco"</span><span class="paren2">)</span><span class="paren1">)</span>
+  <span class="number">0</span>: <span class="paren1">(</span>STRING-TO-MORSE <span class="string">"marco"</span><span class="paren1">)</span>
+  <span class="number">0</span>: STRING-TO-MORSE returned <span class="string">"-- .- .-. -.-. ---"</span>
+  <span class="number">0</span>: <span class="paren1">(</span>MORSE-TO-STRING <span class="string">"-- .- .-. -.-. ---"</span><span class="paren1">)</span>
+  <span class="number">0</span>: MORSE-TO-STRING returned <span class="string">"MARCO"</span>
+<span class="string">"MARCO"</span>
+<span class="prompt">MORSE&gt;</span> 
+<span class="explain">;; Pressing ,T to untrace all</span>
+Untracing:
+  morse::string-to-morse
+  morse::morse-to-string
+</pre>
+
+<p>Now we also got the tracing output, showing what functions were called, the arguments passed to them, and their return values. We can be fairly confident that our functions work as we want them to.</p>
+
+<h3 class='post-title entry-title'>
+<a NAME="inspobj">Inspecting objects
+</h3>
+
+<p>The SLIME Inspector has been introduced in section <a href='tutorial2.html#inspect'>Inspecting a package</a>. This section describes some more advanced uses of the Inspector. Let's begin with evaulating the defective form <span class="fixed">(morse-to-string (string-to-morse 42))</span>, dropping us into the debugger. If we open the frame(s) we can see the local variable bindings and the source location of the frame. In the example below frame #5 has one argument, presented as <span class="fixed">SB-DEBUG::ARG-0</span>.</p>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span> <span class="paren1">(</span>morse-to-string <span class="paren2">(</span>string-to-morse <span class="number">42</span><span class="paren2">)</span><span class="paren1">)</span>
+
+
+<span class="inverse">Slimv.REPL.lisp                                                      145,0-1          Bot</span>
+The value 42 is not of type ARRAY.
+   [Condition of type TYPE-ERROR]
+
+Restarts:
+  <span class="keyword">0:</span> [RETRY] Retry SLIME REPL evaluation request.
+  <span class="keyword">1:</span> [*ABORT] Return to SLIME's top level.
+  <span class="keyword">2:</span> [TERMINATE-THREAD] Terminate this thread (#&lt;THREAD "repl-thread" RUNNING {B618699}&gt;)
+
+Backtrace:
+  <span class="keyword">0:</span> (STRING-TO-MORSE 42)
+  <span class="keyword">1:</span> (SB-INT:SIMPLE-EVAL-IN-LEXENV (STRING-TO-MORSE 42) #&lt;NULL-LEXENV&gt;)
+  <span class="keyword">2:</span> (SB-INT:SIMPLE-EVAL-IN-LEXENV (MORSE-TO-STRING (STRING-TO-MORSE 42)) #&lt;NULL-LEXENV&gt;)
+  <span class="keyword">3:</span> (SWANK::EVAL-REGION "(morse-to-string (string-to-morse 42))\n")
+  <span class="keyword">4:</span> ((LAMBDA ()))
+<span class="inverse"> </span> <span class="keyword">5:</span> (SWANK::TRACK-PACKAGE #&lt;CLOSURE (LAMBDA #) {B1272AD}&gt;)
+      in "~/.vim/slime/swank.lisp" line 2258
+    Locals:
+      SB-DEBUG::ARG-0 = #&lt;CLOSURE (LAMBDA ()) {AD4BE6D}&gt;
+
+  <span class="keyword">6:</span> (SWANK::CALL-WITH-RETRY-RESTART "Retry SLIME REPL evaluation request." #&lt;CLOSURE ...
+  <span class="keyword">7:</span> (SWANK::CALL-WITH-BUFFER-SYNTAX NIL #&lt;CLOSURE (LAMBDA #) {B127225}&gt;)
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^15,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>If we press <span class="fixed">Enter</span> on <span class="fixed">in "~/.vim/slime/swank.lisp" line 2258</span> then Slimv opens the associated source file in a buffer and locates line 2258.</p>
+<p>If we select Debugging/Inspect while the cursor is on the frame line, then a special "Inspect in Frame" function is executed, which inspects the result of evaluating an expression in the given frame. Choose it for examining the value of the function argument <span class="fixed">SB-DEBUG::ARG-0</span> that has a kind of useless representation in the frame box (<span class="fixed">#&lt;CLOSURE (LAMBDA ()) {AD4BE6D}&gt;</span>).</p>
+
+<pre class="repl-body">
+  <span class="keyword">4:</span> ((LAMBDA ()))
+<span class="inverse"> </span> <span class="keyword">5:</span> (SWANK::TRACK-PACKAGE #&lt;CLOSURE (LAMBDA #) {B1272AD}&gt;)
+      in "~/.vim/slime/swank.lisp" line 2258
+    Locals:
+      SB-DEBUG::ARG-0 = #&lt;CLOSURE (LAMBDA ()) {AD4BE6D}&gt;
+
+  <span class="keyword">6:</span> (SWANK::CALL-WITH-RETRY-RESTART "Retry SLIME REPL evaluation request." #&lt;CLOSURE ...
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^15,1^^^^^^^^^^^^Top</span>
+Inspect in frame 5: <span class="manual">sb-debug::arg-0</span>
+</pre>
+
+<pre class="repl-body">
+<span class="inverse">I</span>nspecting #&lt;FUNCTION {AD4BE6D}&gt;
+--------------------
+
+[1] FUNCTION: #&lt;FUNCTION (LAMBDA ()) {A20DB3D}&gt;
+Closed over values:
+[2] 0: "(morse-to-string (string-to-morse 42)) ..
+
+
+[&lt;&lt;]
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>The Inspector output is much more descriptive, isn't it?</p>
+<p>We can also use the "Inspect in Frame" facility for examining other variable bindings. Take for instance <span class="fixed">*package*</span>...:</p>
+
+<pre class="repl-body">
+<span class="inverse"> </span><span class="keyword">16:</span> ((FLET SWANK-BACKEND:CALL-WITH-DEBUGGER-HOOK) #&lt;FUNCTION SWANK:SWANK-DEBUGGER-HOOK..
+      in "~/.vim/slime/swank-sbcl.lisp" line 1014
+    Locals:
+      *DEBUGGER-HOOK* = :&lt;NOT-AVAILABLE&gt;
+      SB-KERNEL:*HANDLER-CLUSTERS* = :&lt;NOT-AVAILABLE&gt;
+      SWANK-BACKEND::FUN = #&lt;CLOSURE (LAMBDA ()) {BCC93ED}&gt;
+      SWANK-BACKEND::HOOK = #&lt;FUNCTION SWANK:SWANK-DEBUGGER-HOOK&gt;
+ 
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^30,1^^^^^^^^^^^^Top</span>
+Inspect in frame 16: <span class="manual">*package*</span>
+</pre>
+
+<pre class="repl-body">
+<span class="inverse">I</span>nspecting #&lt;PACKAGE {B65E011}&gt;
+--------------------
+
+[1] Name: "MORSE"
+Nick names: 
+[2] Use list: COMMON-LISP
+Used by list: 
+[3] 26 present symbols.
+0 external symbols.
+[4] 26 internal symbols.
+[5] 978 inherited symbols.
+0 shadowed symbols.
+
+[&lt;&lt;]
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>... or <span class="fixed">*standard-output*</span> as another example:</p>
+
+<pre class="repl-body">
+<span class="inverse"> </span><span class="keyword">16:</span> ((FLET SWANK-BACKEND:CALL-WITH-DEBUGGER-HOOK) #&lt;FUNCTION SWANK:SWANK-DEBUGGER-HOOK..
+      in "~/.vim/slime/swank-sbcl.lisp" line 1014
+    Locals:
+      *DEBUGGER-HOOK* = :&lt;NOT-AVAILABLE&gt;
+ 
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^30,1^^^^^^^^^^^^Top</span>
+Inspect in frame 16: <span class="manual">*standard-output*</span>
+</pre>
+
+<pre class="repl-body">
+<span class="inverse">I</span>nspecting #&lt;SWANK-BACKEND::SLIME-OUTPUT-STREAM {B60A699}&gt;
+--------------------
+
+[1] Class: #&lt;STANDARD-CLASS SWANK-BACKEND::SLIME-OUTPUT-STREAM&gt;
+--------------------
+&lt;0&gt;  Group slots by inheritance [ ]
+&lt;1&gt;  Sort slots alphabetically  [X]
+
+All Slots:
+&lt;2&gt; [ ]  
+[2] BUFFER       = 
+
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<p>One can even inspect the result of a compound expression, like in the following example:</p>
+
+<pre class="repl-body">
+<span class="inverse"> </span> <span class="keyword">1:</span> (SB-INT:SIMPLE-EVAL-IN-LEXENV (STRING-TO-MORSE 42) #&lt;NULL-LEXENV&gt;)
+      No source line information
+    Locals:
+      SB-DEBUG::ARG-0 = (STRING-TO-MORSE 42)
+      SB-DEBUG::ARG-1 = #&lt;NULL-LEXENV&gt;
+
+<span class="inverse">Slimv.SLDB [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^11,1^^^^^^^^^^^^Top</span>
+Inspect in frame 1: <span class="manual">(make-hash-table)</span>
+</pre>
+
+<pre class="repl-body">
+<span class="inverse">I</span>nspecting #&lt;HASH-TABLE {AED4BD9}&gt;
+--------------------
+
+[1] Count: 0
+[2] Size: 16
+[3] Test: EQL
+[4] Rehash size: 1.5
+[5] Rehash threshold: 1.0
+
+
+[&lt;&lt;]
+<span class="inverse">Slimv.INSPECT [RO]^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^1,1^^^^^^^^^^^^Top</span>
+</pre>
+
+<h3 class='post-title entry-title'>
+<a NAME="xref">Cross reference
+</h3>
+
+<p>The last thing Marco was talking about was the Cross Reference (XRef) facility. Let's assume we're required to add a new parameter to function <span class="fixed">morse-to-character</span>. In this case we need to find out and update everyone who calls that function. We can use XRef/List Callers from the Slimv menu or press <span class="fixed">,xl</span>. It tells us the list of function and file names (if resolved) where <span class="fixed">morse-to-character</span> is called:</p>
+
+<pre class="repl-body">
+<span class="source"><span class="paren1">(</span><span class="keyword">defun</span> <span class="inverse">m</span>orse-to-character <span class="paren2">(</span>morse-string<span class="paren2">)</span>                                                 </span>
+<span class="source">  <span class="paren2">(</span><span class="keyword">first</span> <span class="paren3">(</span><span class="keyword">find</span> morse-string <span class="keyword">*morse-mapping* :test #'string= :key #'cdr</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>                </span>
+<span class="source">                                                                                         </span>
+<span class="inverse">morse.lisp                                                            52,8            53%</span>
+List callers: <span class="manual">morse-to-character</span>
+</pre>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span>
+<span class="explain">;; Here follows the result of 'List callers: morse-to-character'</span>
+MORSE-TO-STRING - no source information
+
+<span class="inverse">Slimv.REPL.lisp                                                       75,0-1          Bot</span>
+
+</pre>
+
+<p>At the same time we can ask <span class="fixed">morse-to-character</span>: who do you call?<br>
+Use XRef/List callees from the Slimv menu or press <span class="fixed">,xe</span>:</p>
+
+<pre class="repl-body">
+<span class="source"><span class="paren1">(</span><span class="keyword">defun</span> <span class="inverse">m</span>orse-to-character <span class="paren2">(</span>morse-string<span class="paren2">)</span>                                                 </span>
+<span class="source">  <span class="paren2">(</span><span class="keyword">first</span> <span class="paren3">(</span><span class="keyword">find</span> morse-string <span class="keyword">*morse-mapping* :test #'string= :key #'cdr</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>                </span>
+<span class="source">                                                                                         </span>
+<span class="inverse">morse.lisp                                                            52,8            53%</span>
+List callees: <span class="manual">morse-to-character</span>
+</pre>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span>
+<span class="explain">;; Here follows the result of 'List callees: morse-to-character'</span>
+FIND - no source information
+SECOND - no source information
+STRING= - no source information
+
+<span class="inverse">Slimv.REPL.lisp                                                       75,0-1          Bot</span>
+
+</pre>
+
+<p>If we list callees for <span class="fixed">morse-to-string</span> then we get a slightly longer list, and - as expected - it contains our <span class="fixed">morse-to-character</span> and the recently installed <span class="fixed">split-sequence:split-sequence</span> functions:</p>
+
+<pre class="repl-body">
+<span class="source"><span class="paren1">(</span><span class="keyword">defun</span> <span class="inverse">m</span>orse-to-string <span class="paren2">(</span><span class="keyword">string</span><span class="paren2">)</span>                                                          </span>
+<span class="source">  <span class="paren2">(</span><span class="keyword">with-output-to-string</span> <span class="paren3">(</span>character-stream<span class="paren3">)</span>                                              </span>
+<span class="source">    <span class="paren3">(</span><span class="keyword">loop</span>                                                                                </span>
+<span class="source">      for morse-char in <span class="paren4">(</span>split-sequence:split-sequence <span class="keyword">#\Space string</span><span class="paren4">)</span>                   </span>
+<span class="source">      <span class="keyword">do</span> <span class="paren4">(</span><span class="keyword">write-char</span> <span class="paren5">(</span>morse-to-character morse-char<span class="paren5">)</span> character-stream<span class="paren4">)</span><span class="paren3">)</span><span class="paren2">)</span><span class="paren1">)</span>                </span>
+<span class="source">                                                                                         </span>
+<span class="inverse">morse.lisp                                                            63,8            92%</span>
+List callees: <span class="manual">morse-to-string</span>
+</pre>
+
+<pre class="repl-body">
+<span class="prompt">MORSE&gt;</span>
+<span class="explain">;; Here follows the result of 'List callees: morse-to-string'</span>
+<span class="paren1">(</span>LAMBDA
+    <span class="paren2">(</span>SB-PCL::.ARG0. SB-INT:&amp;MORE SB-PCL::.MORE-CONTEXT. SB-PCL::.MORE-COUNT.<span class="paren2">)</span><span class="paren1">)</span> - no sourc
+WRITE-CHAR - no source information
+MORSE-TO-CHARACTER - no source information
+GET-OUTPUT-STREAM-STRING - no source information
+SPLIT-SEQUENCE:SPLIT-SEQUENCE - /home/kovisoft/.sbcl/site/split-sequence/split-sequence.l
+MAKE-STRING-OUTPUT-STREAM - no source information
+
+<span class="inverse">Slimv.REPL.lisp                                                       75,0-1          Bot</span>
+
+</pre>
+
+<p>At that point the Slime introductory movie ends.</p>
+<p>Once again, let me reuse Marco's words: <i>I hope you think</i> <b>Slimv</b> <i>is cool</i>.&nbsp;&nbsp;&nbsp;&nbsp;:)</p>
+
+<br />
+<span class='nav-prev'>Previous:&nbsp;<a href='tutorial2.html'>Part Two</a></span>
+<br />
+<br />
+<hr />
+
+<p><i>Written by <a href='http://www.vim.org/account/profile.php?user_id=16470'>Tamas Kovacs</a><br />
+Last updated on Aug 28, 2020</i></p>
+
+<br />
+</div>
+
+<div id="sidebar">
+<h3 class='post-title entry-title'>
+Contents
+</h3>
+
+<p><b><a href='tutorial.html'>Part One</a></b></p>
+<a href='tutorial.html#downloading'>Downloading</a><br />
+<a href='tutorial.html#configuration'>Configuration</a><br />
+<a href='tutorial.html#startup'>Starting up</a><br />
+<a href='tutorial.html#basic'>Basic REPL operations</a><br />
+<a href='tutorial.html#edit'>Editing a source file</a><br />
+
+<p><b><a href='tutorial2.html'>Part Two</a></b></p>
+<a href='tutorial2.html#sldb'>Using the SLIME debugger</a><br />
+<a href='tutorial2.html#debug'>More debugging methods</a><br />
+<a href='tutorial2.html#asdf'>Installing a package</a><br />
+<a href='tutorial2.html#inspect'>Inspecting a package</a><br />
+
+<p><b>Part Three</b></p>
+<a href='#trace'>Tracing</a><br />
+<a href='#inspobj'>Inspecting objects</a><br />
+<a href='#xref'>Cross reference</a><br />
+</div>
+
+</body>
+</html>
+<!--
+vim:wrap:
+-->
